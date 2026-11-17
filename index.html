@@ -1,0 +1,1066 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StudyHub | A-Level Revision</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6fb;
+    color: #172033;
+}
+
+header {
+    background: #101827;
+    color: white;
+    padding: 22px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 18px;
+    background: white;
+}
+
+button {
+    border: none;
+    padding: 11px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+nav button {
+    background: #e9edff;
+    color: #3157d5;
+}
+
+nav button.active {
+    background: #3157d5;
+    color: white;
+}
+
+main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 22px;
+}
+
+.panel {
+    background: white;
+    padding: 20px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px #0000000a;
+}
+
+.topic {
+    border: 1px solid #e5e9f2;
+    padding: 14px;
+    border-radius: 9px;
+    margin: 10px 0;
+}
+
+.topic label {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: bold;
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #3157d5;
+}
+
+.subtopics {
+    padding: 12px 0 0 25px;
+}
+
+.subtopics label {
+    font-weight: normal;
+    margin: 9px 0;
+}
+
+.chain {
+    background: #edf2ff;
+    padding: 14px;
+    border-left: 4px solid #3157d5;
+    border-radius: 7px;
+    margin-top: 12px;
+}
+
+.kn {
+    color: #2450c7;
+    font-weight: bold;
+}
+
+.ap {
+    color: #16845b;
+    font-weight: bold;
+}
+
+.an {
+    color: #bd7411;
+    font-weight: bold;
+}
+
+.ev {
+    color: #7950b5;
+    font-weight: bold;
+}
+
+.answer {
+    border: 1px solid #e5e9f2;
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 9px;
+}
+
+.answer button {
+    background: #e9edff;
+    color: #3157d5;
+}
+
+.answer-content {
+    display: none;
+    margin-top: 15px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 1px solid #dce1eb;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.progress {
+    background: #e3e7f0;
+    height: 12px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #3157d5;
+    width: 0%;
+}
+
+.search {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dce1eb;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.diagram {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 15px auto;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #667085;
+}
+
+@media(max-width:600px) {
+    main {
+        padding: 12px;
+    }
+    nav {
+        gap: 6px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>StudyHub</h1>
+    <p>A-Level Economics & Computer Science Revision</p>
+</header>
+
+<nav>
+    <button class="active" onclick="showSection('home',this)">Dashboard</button>
+    <button onclick="showSection('economics',this)">Economics</button>
+    <button onclick="showSection('computer',this)">Computer Science</button>
+    <button onclick="showSection('exam',this)">Exam Practice</button>
+    <button onclick="showSection('diagrams',this)">Diagrams</button>
+</nav>
+
+<main>
+
+<!-- DASHBOARD -->
+
+<section id="home" class="section active">
+
+<div class="panel">
+    <h2>Welcome to your revision hub</h2>
+    <p>Work through the specifications, practise exam questions and track your progress.</p>
+
+    <h3>Overall progress</h3>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <p id="progressText">0% completed</p>
+</div>
+
+<div class="panel">
+    <h2>Your subjects</h2>
+    <p><b>Economics:</b> Pearson Edexcel A-Level Economics A (9EC0)</p>
+    <p><b>Computer Science:</b> Cambridge International A-Level (9618)</p>
+</div>
+
+<div class="panel">
+    <h2>Mark scheme colour key</h2>
+    <p><span class="kn">KN — Knowledge</span></p>
+    <p><span class="ap">AP — Application</span></p>
+    <p><span class="an">AN — Analysis</span></p>
+    <p><span class="ev">EV — Evaluation</span></p>
+</div>
+
+</section>
+
+
+<!-- ECONOMICS -->
+
+<section id="economics" class="section">
+
+<h2>Edexcel A-Level Economics A</h2>
+
+<p>Complete each topic and tick it off when you have revised it.</p>
+
+<input class="search" placeholder="Search Economics..." oninput="searchTopics(this)">
+
+<div id="economicsTopics"></div>
+
+</section>
+
+
+<!-- COMPUTER SCIENCE -->
+
+<section id="computer" class="section">
+
+<h2>Cambridge International Computer Science 9618</h2>
+
+<p>Tick each specification area once you understand it.</p>
+
+<input class="search" placeholder="Search Computer Science..." oninput="searchTopics(this)">
+
+<div id="computerTopics"></div>
+
+</section>
+
+
+<!-- EXAM PRACTICE -->
+
+<section id="exam" class="section">
+
+<h2>Economics exam practice</h2>
+
+<div class="panel">
+    <h3>Mark allocation guide</h3>
+
+    <p><b>4 marks:</b> KN 2, AP 1, AN 1 OR KN 2, AP 2.</p>
+    <p><b>5 marks:</b> KN 1, AP 2, AN 2.</p>
+    <p><b>8 marks:</b> KN 2, AP 2, AN 2, EV 2.</p>
+    <p><b>10 marks:</b> KAA 6, Evaluation 4.</p>
+    <p><b>12 marks:</b> KAA 8, Evaluation 4.</p>
+    <p><b>15 marks:</b> KAA 9, Evaluation 6.</p>
+    <p><b>25 marks:</b> KAA 16, Evaluation 9.</p>
+</div>
+
+<h3>Model answers</h3>
+
+<div id="modelAnswers"></div>
+
+</section>
+
+
+<!-- DIAGRAMS -->
+
+<section id="diagrams" class="section">
+
+<h2>Essential Economics diagrams</h2>
+
+<div class="panel">
+    <h3>1. Production Possibility Frontier</h3>
+    <svg class="diagram" viewBox="0 0 400 270">
+        <path d="M45 15 V225 H380" stroke="black" fill="none" stroke-width="2"/>
+        <path d="M50 35 Q100 180 360 215" stroke="#3157d5" fill="none" stroke-width="3"/>
+        <text x="10" y="20">Good Y</text>
+        <text x="335" y="250">Good X</text>
+        <text x="150" y="95" fill="#3157d5">PPF</text>
+    </svg>
+    <p>Understand opportunity cost, productive efficiency, unused resources and economic growth.</p>
+</div>
+
+<div class="panel">
+    <h3>2. Demand and supply</h3>
+    <svg class="diagram" viewBox="0 0 400 270">
+        <path d="M45 15 V225 H380" stroke="black" fill="none" stroke-width="2"/>
+        <path d="M65 35 L350 205" stroke="#3157d5" stroke-width="3" fill="none"/>
+        <path d="M65 205 L350 35" stroke="#16845b" stroke-width="3" fill="none"/>
+        <text x="350" y="30" fill="#16845b">S</text>
+        <text x="350" y="210" fill="#3157d5">D</text>
+        <text x="10" y="20">Price</text>
+        <text x="335" y="250">Quantity</text>
+    </svg>
+    <p>Understand equilibrium, shifts, movements, shortages and surpluses.</p>
+</div>
+
+<div class="panel">
+    <h3>3. Negative externalities</h3>
+    <svg class="diagram" viewBox="0 0 400 270">
+        <path d="M45 15 V225 H380" stroke="black" fill="none" stroke-width="2"/>
+        <path d="M60 200 L340 35" stroke="#3157d5" stroke-width="3" fill="none"/>
+        <path d="M60 50 L340 200" stroke="#16845b" stroke-width="3" fill="none"/>
+        <path d="M60 15 L340 165" stroke="#bd7411" stroke-width="3" fill="none"/>
+        <text x="345" y="35">MSC</text>
+        <text x="345" y="170">MPC</text>
+        <text x="345" y="210">MPB</text>
+    </svg>
+    <p>Understand external costs, overproduction and welfare loss.</p>
+</div>
+
+<div class="panel">
+    <h3>4. Aggregate demand and aggregate supply</h3>
+    <svg class="diagram" viewBox="0 0 400 270">
+        <path d="M45 15 V225 H380" stroke="black" fill="none" stroke-width="2"/>
+        <path d="M65 35 L350 200" stroke="#3157d5" stroke-width="3" fill="none"/>
+        <path d="M65 200 Q190 200 350 35" stroke="#16845b" stroke-width="3" fill="none"/>
+        <text x="350" y="35">AS</text>
+        <text x="350" y="205">AD</text>
+        <text x="10" y="20">Price level</text>
+        <text x="325" y="250">Real GDP</text>
+    </svg>
+    <p>Understand shifts in AD and AS, output gaps and macroeconomic equilibrium.</p>
+</div>
+
+<div class="panel">
+    <h3>5. Long-run aggregate supply</h3>
+    <svg class="diagram" viewBox="0 0 400 270">
+        <path d="M45 15 V225 H380" stroke="black" fill="none" stroke-width="2"/>
+        <path d="M220 20 V225" stroke="#7950b5" stroke-width="3"/>
+        <text x="230" y="35">LRAS</text>
+        <text x="10" y="20">Price level</text>
+        <text x="325" y="250">Real GDP</text>
+    </svg>
+    <p>Understand productive capacity, productivity and potential output.</p>
+</div>
+
+</section>
+
+</main>
+
+<footer>
+StudyHub Revision Platform · Progress saved in your browser
+</footer>
+
+
+<script>
+
+// NAVIGATION
+
+function showSection(id,button) {
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+
+    document.getElementById(id).classList.add('active');
+
+    document.querySelectorAll('nav button').forEach(b => {
+        b.classList.remove('active');
+    });
+
+    button.classList.add('active');
+}
+
+
+// SPECIFICATION DATA
+
+const economics = [
+{
+name:"1.1 Nature of economics",
+topics:[
+"1.1.1 Economics as a social science",
+"1.1.2 Positive and normative statements",
+"1.1.3 The economic problem",
+"1.1.4 Production possibility frontiers",
+"1.1.5 Specialisation and division of labour"
+],
+chain:"Scarcity → choice → opportunity cost → resource allocation."
+},
+{
+name:"1.2 How markets work",
+topics:[
+"1.2.1 Rational decision making",
+"1.2.2 Demand",
+"1.2.3 Price elasticity of demand",
+"1.2.4 Income elasticity of demand",
+"1.2.5 Cross elasticity of demand",
+"1.2.6 Supply",
+"1.2.7 Price elasticity of supply",
+"1.2.8 Market equilibrium",
+"1.2.9 The market mechanism"
+],
+chain:"Change in demand or supply → shift in curve → shortage or surplus at old price → price adjustment → new equilibrium."
+},
+{
+name:"1.3 Market failure",
+topics:[
+"1.3.1 Types of market failure",
+"1.3.2 Externalities",
+"1.3.3 Public goods",
+"1.3.4 Information gaps"
+],
+chain:"Private costs and benefits differ from social costs and benefits → market output differs from socially optimal output → welfare loss."
+},
+{
+name:"1.4 Government intervention",
+topics:[
+"1.4.1 Indirect taxation",
+"1.4.2 Subsidies",
+"1.4.3 Maximum and minimum prices",
+"1.4.4 Regulation",
+"1.4.5 Government failure"
+],
+chain:"Intervention changes incentives → consumer or producer behaviour changes → resource allocation may improve, but unintended consequences can occur."
+},
+{
+name:"2.1 Measures of economic performance",
+topics:[
+"2.1.1 Economic growth",
+"2.1.2 Inflation",
+"2.1.3 Employment and unemployment",
+"2.1.4 Balance of payments"
+],
+chain:"Changes in economic activity → changes in GDP, employment, prices and trade → consequences for living standards."
+},
+{
+name:"2.2 Aggregate demand",
+topics:[
+"2.2.1 Characteristics of AD",
+"2.2.2 Consumption",
+"2.2.3 Investment",
+"2.2.4 Government expenditure",
+"2.2.5 Net trade"
+],
+chain:"AD = C + I + G + (X-M) → component rises → AD shifts right → real output rises in the short run."
+},
+{
+name:"2.3 Aggregate supply",
+topics:[
+"2.3.1 Characteristics of AS",
+"2.3.2 Short-run AS",
+"2.3.3 Long-run AS"
+],
+chain:"Higher productivity → lower unit costs → increased productive capacity → potential economic growth."
+},
+{
+name:"2.4 National income",
+topics:[
+"2.4.1 National income",
+"2.4.2 Injections and withdrawals",
+"2.4.3 Equilibrium real national output",
+"2.4.4 The multiplier"
+],
+chain:"Injection → increase in income → extra consumption → further income creation → multiplier effect."
+},
+{
+name:"2.5 Economic growth",
+topics:[
+"2.5.1 Causes of growth",
+"2.5.2 Output gaps",
+"2.5.3 Trade cycle"
+],
+chain:"Higher AD or productive capacity → higher real output → economic growth."
+},
+{
+name:"2.6 Macroeconomic objectives and policies",
+topics:[
+"2.6.1 Macroeconomic objectives",
+"2.6.2 Fiscal policy",
+"2.6.3 Monetary policy",
+"2.6.4 Supply-side policy",
+"2.6.5 Policy conflicts"
+],
+chain:"Policy changes → AD or AS changes → effects on growth, inflation, unemployment and external balance."
+},
+{
+name:"3.1 Business growth",
+topics:[
+"3.1.1 Business size",
+"3.1.2 Organic growth",
+"3.1.3 Mergers and takeovers",
+"3.1.4 Economies of scale",
+"3.1.5 Diseconomies of scale"
+],
+chain:"Expansion → economies of scale → lower average costs → improved competitiveness."
+},
+{
+name:"3.2 Business objectives",
+topics:[
+"3.2.1 Profit maximisation",
+"3.2.2 Revenue maximisation",
+"3.2.3 Sales maximisation",
+"3.2.4 Satisficing"
+],
+chain:"Business objective determines output and pricing decisions → impacts profit, market share and consumer welfare."
+},
+{
+name:"3.3 Revenues, costs and profits",
+topics:[
+"3.3.1 Total revenue",
+"3.3.2 Average revenue",
+"3.3.3 Marginal revenue",
+"3.3.4 Fixed and variable costs",
+"3.3.5 Average and marginal costs",
+"3.3.6 Normal and supernormal profit"
+],
+chain:"Output changes → marginal revenue compared with marginal cost → profit-maximising output occurs where MC = MR."
+},
+{
+name:"3.4 Market structures",
+topics:[
+"3.4.1 Perfect competition",
+"3.4.2 Monopolistic competition",
+"3.4.3 Oligopoly",
+"3.4.4 Monopoly",
+"3.4.5 Efficiency"
+],
+chain:"Market structure determines competition and market power → influences price, output, innovation and efficiency."
+},
+{
+name:"3.5 Labour market",
+topics:[
+"3.5.1 Demand for labour",
+"3.5.2 Supply of labour",
+"3.5.3 Wage determination",
+"3.5.4 Wage differentials",
+"3.5.5 Monopsony"
+],
+chain:"Demand for labour is derived from product demand → higher productivity or demand raises MRP → demand for labour may increase."
+},
+{
+name:"3.6 Government intervention in the labour market",
+topics:[
+"3.6.1 Minimum wages",
+"3.6.2 Trade unions",
+"3.6.3 Taxes and benefits",
+"3.6.4 Labour market imperfections"
+],
+chain:"Intervention changes labour costs and incentives → affects employment, wages and labour market efficiency."
+},
+{
+name:"4.1 International economics",
+topics:[
+"4.1.1 Globalisation",
+"4.1.2 Specialisation and trade",
+"4.1.3 Comparative advantage",
+"4.1.4 Protectionism",
+"4.1.5 Terms of trade"
+],
+chain:"Comparative advantage → specialisation → trade → potential gains in output and consumption."
+},
+{
+name:"4.2 Poverty and inequality",
+topics:[
+"4.2.1 Absolute poverty",
+"4.2.2 Relative poverty",
+"4.2.3 Income inequality",
+"4.2.4 Lorenz curve and Gini coefficient"
+],
+chain:"Unequal access to resources and opportunities → differences in income and wealth → persistent inequality."
+},
+{
+name:"4.3 Emerging and developing economies",
+topics:[
+"4.3.1 Measures of development",
+"4.3.2 Factors affecting development",
+"4.3.3 Development strategies"
+],
+chain:"Investment in infrastructure, education and capital → higher productivity → increased long-run development."
+},
+{
+name:"4.4 Financial sector",
+topics:[
+"4.4.1 Financial markets",
+"4.4.2 Financial intermediaries",
+"4.4.3 Financial market failure",
+"4.4.4 Financial regulation"
+],
+chain:"Savings channelled into investment → finance for firms → capital accumulation and economic growth."
+},
+{
+name:"4.5 Role of the state",
+topics:[
+"4.5.1 Government spending",
+"4.5.2 Taxation",
+"4.5.3 Public sector finances",
+"4.5.4 Public debt"
+],
+chain:"Taxation and expenditure affect AD, incentives, redistribution and public finances."
+}
+];
+
+const computer = [
+{
+name:"1. Information representation",
+topics:[
+"Binary and denary",
+"Hexadecimal",
+"Binary arithmetic",
+"Signed and unsigned integers",
+"Two's complement",
+"BCD",
+"ASCII and Unicode",
+"Bitmap graphics",
+"Vector graphics",
+"Sound representation",
+"Lossy and lossless compression"
+]
+},
+{
+name:"2. Communication",
+topics:[
+"Network types",
+"Network topologies",
+"Client-server networks",
+"Peer-to-peer networks",
+"Thin and thick clients",
+"Network hardware",
+"IP addressing",
+"MAC addressing",
+"DNS",
+"Packet switching",
+"Protocols",
+"Network security"
+]
+},
+{
+name:"3. Hardware",
+topics:[
+"CPU architecture",
+"Fetch-decode-execute cycle",
+"Registers",
+"ALU and control unit",
+"Address, data and control buses",
+"RISC and CISC",
+"Cache memory",
+"RAM and ROM",
+"Secondary storage",
+"Virtual memory",
+"Interrupts",
+"Logic gates"
+]
+},
+{
+name:"4. Processor fundamentals",
+topics:[
+"Instruction sets",
+"Machine code",
+"Assembly language",
+"Addressing modes",
+"Processor performance",
+"Embedded systems",
+"Microcontrollers"
+]
+},
+{
+name:"5. System software",
+topics:[
+"Operating systems",
+"Memory management",
+"Scheduling",
+"Device drivers",
+"Utility software",
+"Compilers",
+"Interpreters",
+"Assemblers",
+"Linkers and loaders"
+]
+},
+{
+name:"6. Security, privacy and data integrity",
+topics:[
+"Malware",
+"Phishing and social engineering",
+"Authentication",
+"Access control",
+"Firewalls",
+"Encryption",
+"Backups",
+"Validation and verification",
+"Data protection"
+]
+},
+{
+name:"7. Ethics and ownership",
+topics:[
+"Copyright",
+"Software licences",
+"Open-source software",
+"Proprietary software",
+"Data privacy",
+"Computer misuse",
+"Professional ethics",
+"Environmental impact"
+]
+},
+{
+name:"8. Databases",
+topics:[
+"Relational databases",
+"Tables, records and fields",
+"Primary keys",
+"Foreign keys",
+"Entity relationship diagrams",
+"Normalisation",
+"SQL SELECT",
+"SQL UPDATE",
+"SQL INSERT",
+"SQL DELETE",
+"Referential integrity"
+]
+},
+{
+name:"9. Algorithm design and problem solving",
+topics:[
+"Decomposition",
+"Abstraction",
+"Pseudocode",
+"Flowcharts",
+"Trace tables",
+"Sequence",
+"Selection",
+"Iteration",
+"Validation",
+"Linear search",
+"Binary search",
+"Bubble sort",
+"Insertion sort",
+"Merge sort",
+"Recursion",
+"File handling",
+"Testing"
+]
+},
+{
+name:"10. Programming",
+topics:[
+"Variables and constants",
+"Data types",
+"Operators",
+"Input and output",
+"Selection statements",
+"Loops",
+"Arrays",
+"Records",
+"Procedures",
+"Functions",
+"Parameters",
+"Local and global variables",
+"String handling",
+"File operations",
+"Object-oriented programming",
+"Testing and debugging"
+]
+},
+{
+name:"11. Data structures",
+topics:[
+"Abstract data types",
+"Stacks",
+"Queues",
+"Linked lists",
+"Trees",
+"Binary search trees",
+"Graphs",
+"Hash tables"
+]
+},
+{
+name:"12. Further algorithm concepts",
+topics:[
+"Algorithm efficiency",
+"Divide and conquer",
+"Greedy algorithms",
+"Graph traversal",
+"Shortest paths",
+"Algorithm correctness"
+]
+}
+];
+
+function createTopics(data,container) {
+
+    let html = "";
+
+    data.forEach((unit,index) => {
+
+        html += `
+        <div class="panel">
+        <h3>${unit.name}</h3>
+        `;
+
+        unit.topics.forEach((topic,i) => {
+
+            let id = container + "-" + index + "-" + i;
+
+            html += `
+            <div class="topic searchable">
+            <label>
+                <input type="checkbox"
+                data-id="${id}"
+                onchange="saveProgress(this)">
+                ${topic}
+            </label>
+            </div>
+            `;
+
+        });
+
+        if(unit.chain) {
+            html += `
+            <div class="chain">
+            <b>Important chain of reasoning:</b><br>
+            ${unit.chain}
+            </div>
+            `;
+        }
+
+        html += `</div>`;
+
+    });
+
+    document.getElementById(container+"Topics").innerHTML = html;
+
+    loadProgress();
+}
+
+function saveProgress(box) {
+
+    let saved = JSON.parse(localStorage.getItem("revisionProgress") || "{}");
+
+    saved[box.dataset.id] = box.checked;
+
+    localStorage.setItem("revisionProgress",JSON.stringify(saved));
+
+    updateProgress();
+}
+
+function loadProgress() {
+
+    let saved = JSON.parse(localStorage.getItem("revisionProgress") || "{}");
+
+    document.querySelectorAll('input[type="checkbox"][data-id]').forEach(box => {
+        box.checked = saved[box.dataset.id] || false;
+    });
+
+    updateProgress();
+}
+
+function updateProgress() {
+
+    let boxes = document.querySelectorAll('input[type="checkbox"][data-id]');
+
+    let completed = 0;
+
+    boxes.forEach(box => {
+        if(box.checked) completed++;
+    });
+
+    let percentage = boxes.length ?
+        Math.round(completed / boxes.length * 100) : 0;
+
+    document.getElementById("progressBar").style.width = percentage + "%";
+
+    document.getElementById("progressText").textContent =
+        completed + " of " + boxes.length + " topics completed (" + percentage + "%)";
+}
+
+function searchTopics(input) {
+
+    let search = input.value.toLowerCase();
+
+    let section = input.closest("section");
+
+    section.querySelectorAll(".topic").forEach(topic => {
+
+        topic.style.display =
+            topic.textContent.toLowerCase().includes(search) ? "block" : "none";
+
+    });
+
+}
+
+
+// ECONOMICS MODEL ANSWERS
+
+const answers = [
+
+{
+title:"1.1 Nature of economics — 5 marks",
+question:"Explain why scarcity creates an opportunity cost.",
+points:[
+["kn","Scarcity occurs because resources are finite while human wants are unlimited."],
+["ap","For example, a government has limited tax revenue and must choose between spending on healthcare or transport."],
+["ap","Allocating more money to healthcare means fewer resources are available for transport."],
+["an","The opportunity cost is the next best alternative forgone."],
+["an","Therefore, economic agents must make choices about how to allocate scarce resources."]
+]
+},
+
+{
+title:"1.2 How markets work — 10 marks",
+question:"Explain how an increase in demand affects equilibrium price and quantity.",
+points:[
+["kn","Demand is the quantity consumers are willing and able to purchase at different prices."],
+["ap","For example, higher incomes may increase demand for normal goods such as restaurant meals."],
+["an","The demand curve shifts to the right because consumers are willing and able to purchase more at every price."],
+["an","At the original equilibrium price, excess demand develops."],
+["an","Competition between consumers puts upward pressure on price."],
+["an","A higher price causes an extension along the supply curve, increasing quantity supplied."],
+["ev","The size of the change depends on price elasticity of supply."],
+["ev","If supply is inelastic, price rises by relatively more than quantity."]
+]
+},
+
+{
+title:"2.4 National income — 10 marks",
+question:"Explain how an increase in injections can increase national income.",
+points:[
+["kn","Injections consist of investment, government spending and exports."],
+["ap","For example, government investment in rail infrastructure increases government expenditure."],
+["an","The expenditure becomes income for construction firms and workers."],
+["an","Workers spend part of this additional income on goods and services."],
+["an","This creates additional income for other firms and households, generating further rounds of spending."],
+["ev","The multiplier will be smaller when withdrawals such as saving, taxation and imports are high."]
+]
+},
+
+{
+title:"3.4 Market structures — 15 marks",
+question:"Assess whether monopoly power is always harmful to consumers.",
+points:[
+["kn","A monopoly is a market structure where one firm has significant market power and barriers to entry protect it."],
+["ap","For example, a dominant utility provider may face limited direct competition because network infrastructure is expensive."],
+["an","The firm may restrict output and charge a price above marginal cost, reducing consumer surplus."],
+["an","A lack of competitive pressure may reduce incentives to improve efficiency."],
+["ev","However, supernormal profits may fund research and development."],
+["ev","This can create dynamic efficiency and improve products in the long run."],
+["ev","The effect depends on regulation, contestability and economies of scale."],
+["ev","Overall, monopoly is most harmful where barriers to entry are strong and regulation is weak."]
+]
+},
+
+{
+title:"4.1 International economics — 25 marks",
+question:"Evaluate whether free trade is always beneficial to an economy.",
+points:[
+["kn","Free trade is the exchange of goods and services between countries without significant trade barriers."],
+["ap","Countries can specialise in products where they have a comparative advantage."],
+["an","Specialisation allows resources to be allocated towards lower opportunity-cost activities."],
+["an","This can raise productive efficiency and increase potential output."],
+["ap","Consumers may gain access to cheaper imported products and greater choice."],
+["ev","However, domestic industries facing import competition may contract."],
+["an","This may create structural unemployment if workers cannot quickly retrain."],
+["ev","The overall impact depends on how effectively workers and resources can move into expanding industries."],
+["ev","In conclusion, free trade can raise long-run welfare, but the gains are not automatically shared equally."]
+]
+}
+
+];
+
+function renderAnswers() {
+
+    let html = "";
+
+    answers.forEach((answer,index) => {
+
+        html += `
+        <div class="answer">
+            <h3>${answer.title}</h3>
+            <p><b>Question:</b> ${answer.question}</p>
+
+            <button onclick="toggleAnswer(${index})">
+                Show / hide model answer
+            </button>
+
+            <div class="answer-content" id="answer${index}">
+        `;
+
+        answer.points.forEach(point => {
+
+            html += `
+            <p>
+                <span class="${point[0]}">${point[0].toUpperCase()}:</span>
+                ${point[1]}
+            </p>
+            `;
+
+        });
+
+        html += `
+            </div>
+        </div>
+        `;
+
+    });
+
+    document.getElementById("modelAnswers").innerHTML = html;
+}
+
+function toggleAnswer(index) {
+
+    let answer = document.getElementById("answer"+index);
+
+    answer.style.display =
+        answer.style.display === "block" ? "none" : "block";
+}
+
+
+// START WEBSITE
+
+createTopics(economics,"economics");
+createTopics(computer,"computer");
+renderAnswers();
+
+</script>
+
+</body>
+</html>
